@@ -18,6 +18,7 @@ public class ModelTest {
         System.out.println("text");
         Corpus corpus = new Corpus("C:\\Users\\wojci\\Desktop\\STUDIA\\wdsjn\\korpus-pan.txt", 12, stimulus);
         System.out.println("corpus");
+        corpus.generate();
         Model model = new Model(corpus);
         System.out.println("model");
         model.generateFrequencies(Arrays.asList(stimulus));

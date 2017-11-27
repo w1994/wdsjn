@@ -1,5 +1,8 @@
 package pl.edu.agh;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,10 +14,21 @@ import java.util.stream.Stream;
 
 public class Corpus {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Corpus.class);
     private Map<String, Long> wordsOccurrences = new HashMap<>();
     private Map<String, Map<String, Long>> wordsCooccurrences = new HashMap<>();
 
+    private String path;
+    private int windowSize;
+    private String stimulus;
+
     public Corpus(String path, int windowSize, String stimulus) {
+        this.path = path;
+        this.windowSize = windowSize;
+        this.stimulus = stimulus;
+    }
+
+    public void generate() {
         try (Stream<String> stream = Files.lines(Paths.get(path))) {
             Window window = new Window(windowSize);
             Stream.concat(Stream.generate(() -> null).limit(windowSize),
@@ -33,42 +47,9 @@ public class Corpus {
         }
     }
 
-    public Corpus(List<String> words, int windowSize) {
-        System.out.println("CALCULATED1");
-        calculateWordOccurences(words);
-        System.out.println("CALCULATED2");
-        generate(words, windowSize);
-        System.out.println("CALCULATED3");
-    }
-
-    private void calculateWordOccurences(Stream<String> words) {
-        words.forEach(this::updateOccurrences);
-    }
-
-    private void calculateWordOccurences(List<String> words) {
-        words.forEach(this::updateOccurrences);
-    }
-
     private void updateOccurrences(Object word) {
         Long value = wordsOccurrences.getOrDefault(word, 0L);
         wordsOccurrences.put((String) word, value + 1);
-    }
-
-    private void generate(Stream<String> words, int windowSize) {
-        Window window = new Window(windowSize);
-        Stream.concat(Stream.generate(() -> null).limit(windowSize),
-                Stream.concat(words,
-                        Stream.generate(() -> null).limit(windowSize)))
-                .forEach(word -> updateCooccurencesAndMoveWindow(word, window, ""));
-    }
-
-
-    private void generate(List<String> words, int windowSize) {
-        Window window = new Window(windowSize);
-        Stream.concat(Stream.generate(() -> null).limit(windowSize),
-                Stream.concat(words.stream(),
-                        Stream.generate(() -> null).limit(windowSize)))
-                .forEach(word -> updateCooccurencesAndMoveWindow(word, window, ""));
     }
 
     private void updateCooccurencesAndMoveWindow(Object obj, Window window, String stimulus) {

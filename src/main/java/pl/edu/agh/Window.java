@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-
 public class Window {
 
     private int windowSize;
     private List<String> words;
-
 
     public Window(int windowSize) {
         this.windowSize = windowSize;
