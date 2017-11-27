@@ -12,8 +12,6 @@ public class TextTest {
 
         Text text = new Text("C:\\Users\\wojci\\Desktop\\STUDIA\\wdsjn\\korpus-pan.txt");
 
-        text.getLines();
-
     }
 
 
