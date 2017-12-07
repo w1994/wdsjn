@@ -1,4 +1,4 @@
-package pl.edu.agh;
+package pl.edu.agh.app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,5 +26,9 @@ public class Window {
 
     public String getCurrentWord(){
         return words.get(windowSize);
+    }
+
+    public int getWindowSize() {
+        return windowSize;
     }
 }
