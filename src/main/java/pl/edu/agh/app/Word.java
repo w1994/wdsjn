@@ -23,8 +23,8 @@ public class Word implements Comparable {
 
     private String preprocessWord(String value) {
         return Stream.of(value)
-                .map(Text::replace)
                 .map(String::toLowerCase)
+                .map(Text::replace)
                 .map(Text::stem)
                 .map(Text::replacePolishLetters)
                 .findFirst()
@@ -53,6 +53,6 @@ public class Word implements Comparable {
 
     @Override
     public String toString() {
-        return "\t" + word + " : " + frequency;
+        return word + " : " + String.format("%f", frequency);
     }
 }
