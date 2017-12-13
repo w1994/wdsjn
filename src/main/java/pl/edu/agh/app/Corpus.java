@@ -1,8 +1,5 @@
 package pl.edu.agh.app;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,13 +28,13 @@ public class Corpus {
         try (Stream<String> stream = Files.lines(Paths.get(path))) {
             Stream.concat(Stream.generate(() -> null).limit(window.getWindowSize()),
                     Stream.concat(stream.filter(line -> !line.startsWith("#"))
-                                        .map(Text::split)
-                                        .flatMap(Arrays::stream)
-                                        .map(Text::replace)
-                                        .map(String::toLowerCase)
-                                        .map(Text::stem)
-                                        .map(Text::replacePolishLetters),
-                                  Stream.generate(() -> null).limit(window.getWindowSize())))
+                                    .map(String::toLowerCase)
+                                    .map(Text::split)
+                                    .flatMap(Arrays::stream)
+                                    .map(Text::replace)
+                                    .map(Text::stem)
+                                    .map(Text::replacePolishLetters),
+                            Stream.generate(() -> null).limit(window.getWindowSize())))
                     .peek(this::updateOccurrences)
                     .forEach(word -> updateCooccurencesAndMoveWindow(word));
         } catch (IOException e) {

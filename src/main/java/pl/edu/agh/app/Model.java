@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static pl.edu.agh.association.Associations.MAX_SIZE;
+
 public class Model {
 
     private static final double ALPHA = 0.66;
@@ -35,7 +37,7 @@ public class Model {
             try {
                 List<Word> words = results.get(stimulus);
                 words.sort(Collections.reverseOrder());
-                Files.write(Paths.get("C:\\Users\\wojci\\Desktop\\STUDIA\\wdsjn\\02.12.2017\\"+stimulus+".txt"), words.stream().map(Object::toString).collect(Collectors.toList()));
+                Files.write(Paths.get("C:\\Users\\wojci\\Desktop\\STUDIA\\wdsjn\\02.12.2017\\"+stimulus+".txt"), words.stream().limit(MAX_SIZE).map(Object::toString).collect(Collectors.toList()));
                 words.forEach(word -> System.out.println("\t" + word.getWord() + " : " + word.getFrequency()));
             } catch (IOException e) {
                 e.printStackTrace();
