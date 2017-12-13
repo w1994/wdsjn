@@ -23,4 +23,21 @@ public class ModelTest {
         model.generateFrequencies(stimuluses);
     }
 
+    @Test
+    public void test2() {
+
+
+        List<String> a = Arrays.asList("Łazowski");
+
+        List<String> aa = a.stream().filter(line -> !line.startsWith("#"))
+                .map(Text::split)
+                .flatMap(Arrays::stream)
+                .map(Text::replace)
+                .map(Text::stem)
+                .map(String::toLowerCase)
+                .map(Text::replacePolishLetters).collect(Collectors.toList());
+
+        System.out.println(aa.get(0));
+    }
+
 }
