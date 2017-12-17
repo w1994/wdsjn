@@ -27,8 +27,7 @@ public class Corpus {
     public void generate() {
         try (Stream<String> stream = Files.lines(Paths.get(path))) {
             Stream.concat(Stream.generate(() -> null).limit(window.getWindowSize()),
-                    Stream.concat(stream.filter(line -> !line.startsWith("#"))
-                                    .map(String::toLowerCase)
+                    Stream.concat(stream.map(String::toLowerCase)
                                     .map(Text::split)
                                     .flatMap(Arrays::stream)
                                     .map(Text::replace)
@@ -36,7 +35,7 @@ public class Corpus {
                                     .map(Text::replacePolishLetters),
                             Stream.generate(() -> null).limit(window.getWindowSize())))
                     .peek(this::updateOccurrences)
-                    .forEach(word -> updateCooccurencesAndMoveWindow(word));
+                    .forEach(this::updateCooccurencesAndMoveWindow);
         } catch (IOException e) {
             e.printStackTrace();
         }

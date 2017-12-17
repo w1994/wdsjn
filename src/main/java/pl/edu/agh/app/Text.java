@@ -37,7 +37,6 @@ public class Text {
         List<WordData> wordData = polishStemmer.lookup(word);
         if (wordData.size() > 0) {
             return wordData.get(0).getStem().toString();
-//            return word;
         } else {
             return word;
         }

@@ -32,13 +32,11 @@ public class Model {
             }
         }
 
-
         for (String stimulus : stimuluses) {
             try {
                 List<Word> words = results.get(stimulus);
                 words.sort(Collections.reverseOrder());
                 Files.write(Paths.get("C:\\Users\\wojci\\Desktop\\STUDIA\\wdsjn\\02.12.2017\\"+stimulus+".txt"), words.stream().limit(MAX_SIZE).map(Object::toString).collect(Collectors.toList()));
-                words.forEach(word -> System.out.println("\t" + word.getWord() + " : " + word.getFrequency()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

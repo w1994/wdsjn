@@ -3,13 +3,9 @@ package pl.edu.agh;
 import org.junit.Test;
 import pl.edu.agh.app.Corpus;
 import pl.edu.agh.app.Model;
-import pl.edu.agh.app.Text;
-import pl.edu.agh.app.Word;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class ModelTest {

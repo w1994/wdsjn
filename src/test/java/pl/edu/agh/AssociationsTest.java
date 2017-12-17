@@ -18,8 +18,6 @@ public class AssociationsTest {
         associations.clear();
         associations.save();
 
-        System.out.println(associations);
-
     }
 
 
